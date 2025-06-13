@@ -1,0 +1,322 @@
+/* FONTS */
+@font-face { font-family: Nexa Light; src: url('./assets/fonts/nexa-light.otf'); }
+@font-face {
+  font-family: PlayfairDisplaySemiBold;
+  src: url('./assets/fonts/PlayfairDisplay-SemiBoldItalic.ttf');
+}
+@font-face {
+  font-family: Bebas Neue Book;
+  src: url('./assets/fonts/BebasNeueBook.otf');
+}
+@font-face {
+  font-family: PlayfairDisplayRegular;
+  src: url('./assets/fonts/PlayfairDisplay-Regular.ttf');
+}
+
+html, body{
+  margin: 0;
+  padding: 0;
+}
+
+/* container & slide base */
+#slideshow-container {
+  position: relative;
+  width: 100vw; height: 100vh;
+  overflow: hidden;
+}
+.slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity .8s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.slide.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* INTRO STYLING */
+.slide--intro {
+  position: absolute;
+  inset: 0;                    /* top/right/bottom/left = 0 */
+  width: 100vw;
+  height: 100vh;
+  background: var(--bg, #1a2238);
+  display: flex;
+  justify-content: center;     /* center horizontally */
+  align-items: center;         /* center vertically */
+}
+
+/* 2) Constrain the dotted border box to ~25% of the width */
+.intro-border {
+  position: relative;         /* for absolute children */
+  width: 25vw;
+  height: 75vh;           /* 75% of the viewport height */
+  max-width: 400px;          /* cap for very large screens */
+  min-width: 300px;          /* keep it readable on smaller screens */
+  row-gap: 1.5rem;           /* larger gap between lines */
+  border: 3px dotted #B8955A;
+  box-sizing: border-box;
+}
+
+
+/* 3) Pull the heart “through” the top border */
+.slide--intro .svg-top {
+  position: absolute;
+  top: -2.5rem;                /* overlap by about half its height */
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg, #1a2238);
+  padding: 0 0.5rem;
+  z-index: 1;
+  width: 100px;               
+}
+
+/* 4) Pull the bottom text “through” the bottom border */
+.slide--intro .bottom-text {
+  position: absolute;
+  bottom: -1.5rem;             /* overlap border by half its height */
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg, #1a2238);
+  padding: 0 0.75rem;
+  z-index: 1;
+  line-height: 1;
+  color: #fff;
+  font-size: 1.25rem;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+  text-align: center;
+}
+.circle-wrap {
+  transform: translateX(-0%);
+  width: 175px;           /* match your circle’s outer size */
+  height: 175px;
+  border-radius: 50%;    /* makes it perfectly round */
+  overflow: hidden;      /* anything beyond the circle is clipped */
+  background: var(--bg); /* masks the dotted border behind it */
+}
+
+/* your rotating circle image */
+.circle-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  animation: spin 20s linear infinite;
+}
+
+/* the “shine” pseudo-element now lives inside the circle-wrap,
+   but will be clipped to its round shape */
+.circle-wrap::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 200%;  /* long enough to sweep */
+  height: 200%;
+  background:
+    linear-gradient(
+      45deg,
+      rgba(255,255,255,0) 30%,
+      rgba(255,255,255,0.5) 50%,
+      rgba(255,255,255,0) 70%
+    );
+  transform: translateX(-100%) rotate(25deg);
+  animation: shine 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* keyframes */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes shine {
+  to { transform: translateX(100%) rotate(25deg); }
+}
+
+
+/* 5) Text stack inside */
+.intro-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 0.5rem;
+  margin-top: 25%;
+}
+
+.intro-text .logo {
+  font-size: clamp(3.5rem, 10vw, 6rem);
+  color: var(--logoColor, #B8955A);
+  line-height: 1;
+  margin: 0;
+  margin-bottom: 5%;
+}
+.registered-trademark {
+  font-size: 1rem;
+  color: #B8955A;
+  margin: 0;
+}
+.intro-text .line {
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  line-height: 1.1;
+  color: var(--fontsColor, #ffff);
+  margin: 0;
+  font-weight: bold;
+}
+
+.intro-text .line.small {
+  font-size: clamp(1.25rem, 4vw, 2rem);
+  font-style: italic;
+}
+/* Font Styling */
+  .font-1{
+   font-family: PlayfairDisplayRegular,  Helvetica,serif;
+  }
+  .font-3{
+    font-family: PlayfairDisplaySemiBold,  Helvetica, sans-serif;
+  }
+  .font-4{
+    font-family: 'BebasNeueBook', Helvetica, sans-serif;
+  }
+
+/* CAPTION STYLING */
+.slide-caption,
+.slide-caption img {
+  width: 100vw;
+  height: 100vh;
+}
+
+/* stretch to fit, even if it distorts */
+.slide-caption img {
+  object-fit: fill;      /* no cropping, no letter‑box, will distort */
+  object-position: center;
+}
+
+/* OVERLAY STYILING */
+/* OVERLAY RIGHT STYLING */
+.slide--overlay-right {
+  display: block; /* Override default flex behavior */
+}
+
+.slide--overlay-right .slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill; /* Stretch main image */
+}
+
+.slide--overlay-right .overlay-img {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+.slide--overlay-right.loaded .overlay-img {
+  opacity: 1;
+}
+
+/* OVERLAY LEFT STYLING */
+.slide-caption img {
+  object-fit: fill;      /* no cropping, no letter‑box, will distort */
+  object-position: center;
+}
+
+/* OVERLAY STYILING */
+/* OVERLAY RIGHT STYLING */
+.slide--overlay-left {
+  display: block; /* Override default flex behavior */
+}
+
+.slide--overlay-left .slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill; /* Stretch main image */
+}
+
+.slide--overlay-left .overlay-img {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+.slide--overlay-left.loaded .overlay-img {
+  opacity: 1;
+}
+
+/*OVERLAY MIDDLE STYLING */
+.slide--overlay-middle {
+  position: relative;
+  display: block;
+}
+
+.slide--overlay-middle .slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Bottles */
+/* Start state: off-screen and invisible */
+.bottle-img {
+  position: absolute;
+  top: 5%;
+  height: 80%;
+  opacity: 1;
+  transition: transform 3s ease;
+}
+
+.bottle-left {
+  left: 0;
+  transform: translateX(-150%);
+}
+
+.bottle-right {
+  right: 0;
+  transform: translateX(150%);
+}
+
+/* When activated */
+.slide--overlay-middle.active .bottle-left,
+.slide--overlay-middle.loaded .bottle-left {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.slide--overlay-middle.active .bottle-right,
+.slide--overlay-middle.loaded .bottle-right {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+/* Overlay in the center */
+.slide--overlay-middle .overlay-img {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-height: 80%; 
+  max-width: 80%;
+  opacity: 0;
+  transition: opacity 3s ease;
+  z-index: 2;
+}
+
+/* Trigger overlay fade-in */
+.slide--overlay-middle.loaded .overlay-img {
+  opacity: 1;
+}

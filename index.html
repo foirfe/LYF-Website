@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>LYF | Premium Natural Mineral Water</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+  <main id="slideshow-container"></main>
+
+  
+  <!-- Type 1: full-bleed image + centered text + colored border -->
+  <template id="tmpl-intro">
+         <section class="slide slide--intro">
+          <div class="intro-border">
+            <!-- Top heart, overlaps the border -->
+            <img class="svg-top" src="assets/svg/heart.svg" alt="LYF Heart Logo">
+            <!-- Stacked Text -->
+            <div class="intro-text">
+              <h1 class="logo font-1">L&#376;F<span class="registered-trademark">&#174;</span></h1>
+              <div class="line font-2">ONE</div>
+              <div class="line small font-3">of</div>
+              <div class="line font-2">THE</div>
+              <div class="line small font-3">world’s</div>
+              <div class="line font-2">PUREST</div>
+              <div class="circle-wrap">
+                <img
+                  class="circle-img"
+                  src="assets/svg/circle1.svg"
+                  alt="Decorative Circle"
+                >
+              </div>
+            </div>
+            <div class="bottom-text font-4">
+                ARTISAN<br>
+                NATURAL MINERAL WATER
+              </div>
+          </div>
+        </section>
+  </template>
+
+  <!-- Type 2: image with small caption at bottom -->
+  <template id="tmpl-caption">
+    <section class="slide slide-caption">
+      <img class="slide-img" src="" alt="">
+    </section>
+  </template>
+
+  <!-- Type 3: image with overlay text right -->
+<template id="tmpl-overlay-right">
+  <section class="slide slide--overlay-right">
+    <img class="slide-img" src="" alt="">
+    <img class="overlay-img" src="" alt="">
+  </section>
+</template>
+
+  <!-- Type 4: image with overlay text left -->
+<template id="tmpl-overlay-left">
+  <section class="slide slide--overlay-left">
+    <img class="slide-img" src="" alt="">
+    <img class="overlay-img" src="" alt="">
+  </section>
+</template>
+   <!-- Type 5: image with two bottles and middle overlay-->
+<template id="tmpl-overlay-middle">
+  <section class="slide slide--overlay-middle">
+    <img class="slide-img" src="" alt="">
+    <img class="bottle-img bottle-left" src="" alt="">
+    <img class="bottle-img bottle-right" src="" alt="">
+    <img class="overlay-img" src="" alt="">
+  </section>
+</template>
+
+  <script src="script.js"></script>
+</body>
+</html>
