@@ -3,6 +3,9 @@
   font-family: PlayfairDisplaySemiBold;
   src: url('./assets/fonts/PlayfairDisplay-SemiBoldItalic.ttf');
 }
+html, body {
+  overflow-x: hidden;
+}
 @font-face {
   font-family: Bebas Neue Book;
   src: url('./assets/fonts/BebasNeueBook.otf');
@@ -151,3 +154,33 @@
   .font-4{
     font-family: 'BebasNeueBook', Helvetica, sans-serif;
   }
+
+/* Responsive adjustments for small screens */
+@media (max-width: 600px) {
+  .intro-border {
+    width: 90vw;
+    height: 65vh;
+    min-width: auto;
+  }
+
+  .circle-wrap {
+    width: 140px;
+    height: 140px;
+  }
+
+  .intro-text {
+    margin-top: 35%;
+  }
+
+  .intro-text .logo {
+    font-size: clamp(2.5rem, 12vw, 4.5rem);
+  }
+
+  .intro-text .line {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
+
+  .intro-text .line.small {
+    font-size: clamp(1rem, 5vw, 1.5rem);
+  }
+}
