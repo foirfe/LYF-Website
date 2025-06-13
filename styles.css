@@ -16,6 +16,7 @@
 html, body{
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
 }
 
 /* container & slide base */
@@ -319,4 +320,47 @@ html, body{
 /* Trigger overlay fade-in */
 .slide--overlay-middle.loaded .overlay-img {
   opacity: 1;
+}
+
+/* Responsive adjustments for small screens */
+@media (max-width: 600px) {
+  .intro-border {
+    width: 90vw;
+    height: 65vh;
+    min-width: auto;
+  }
+
+  .circle-wrap {
+    width: 140px;
+    height: 140px;
+  }
+
+  .intro-text {
+    margin-top: 35%;
+  }
+
+  .intro-text .logo {
+    font-size: clamp(2.5rem, 12vw, 4.5rem);
+  }
+
+  .intro-text .line {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
+
+  .intro-text .line.small {
+    font-size: clamp(1rem, 5vw, 1.5rem);
+  }
+
+  .slide--overlay-right .overlay-img,
+  .slide--overlay-left .overlay-img {
+    height: 50%;
+  }
+
+  .slide--overlay-middle .overlay-img {
+    max-height: 60%;
+  }
+
+  .bottle-img {
+    height: 50%;
+  }
 }
