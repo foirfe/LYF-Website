@@ -49,8 +49,8 @@ const slidesData = [
   bg: '#144031',
   src: 'assets/images/sec2image3.png',
   alt: 'Background',
-  bottleLeft: 'assets/cutouts/bottle.png',
-  bottleRight: 'assets/cutouts/bottle.png',
+  bottleLeft: 'assets/cutouts/bottlestill.png',
+  bottleRight: 'assets/cutouts/bottlesparkling.png',
   overlaySrc: 'assets/cutouts/fromsourcegreen.png',
   overlayAlt: 'Overlay Text',
   duration: 6000
