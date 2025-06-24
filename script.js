@@ -20,7 +20,7 @@ const slidesData = [
   {
     type:       'overlay-right',           
     bg:         '#1a2238',
-    src:        'assets/images/sec1image3.png',
+    src:        'assets/images/sec1image3.jpg',
     alt:        'Hand Pour Ice',
     overlaySrc: 'assets/cutouts/discoverenhanced.png',// ← match JS property name
     overlayAlt: 'Facts',
@@ -230,6 +230,24 @@ else if (data.type === 'overlay-middle') {
     container.appendChild(slide);
     return slide;
   });
+
+  // whenever you activate a new slide:
+function showSlide(slideEl) {
+  // remove .active from all slides first
+  document.querySelectorAll('.slide-caption.active').forEach(s => {
+    s.classList.remove('active');
+  });
+
+  // force reflow on images so animation can restart
+  const img = slideEl.querySelector('.type-2-img');
+  if (img) {
+    img.style.animation = 'none';
+    void img.offsetWidth;   // <- reflow
+  }
+
+  // now activate the new slide
+  slideEl.classList.add('active');
+}
 
   /* cross‑fade loop ------------------------------------------------------ */
   let idx = 0;

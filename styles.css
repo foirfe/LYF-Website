@@ -351,16 +351,65 @@ html, body{
     font-size: clamp(1rem, 5vw, 1.5rem);
   }
 
+ .slide-caption,
+  .slide--overlay-right,
+  .slide--overlay-left,
+  .slide--overlay-middle {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;   /* keep any overflow from pan animations tidy */
+  }
+
+  /* size & cover all the “slide-img” elements used in overlay slides */
+  .slide--overlay-right .slide-img,
+  .slide--overlay-left .slide-img,
+  .slide--overlay-middle .slide-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* now target only your type-2 captions for the pan effect */
+   .slide-caption .type-2-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: auto;
+    object-fit: contain;
+    object-position: left center;
+    transform: translateX(0);        /* ensure we start flush-left */
+  }
+
+  /* 2) Only when the slide is active, trigger the pan */
+  .slide-caption.active .type-2-img {
+    animation: pan-x 2s linear forwards;
+  }
+
+  /* 3) Your keyframes (unchanged) */
+  @keyframes pan-x {
+    from { transform: translateX(0); }
+    to   { transform: translateX(calc(100vw - 100%)); }
+  }
+
+  .slide--overlay-left .overlay-img,
   .slide--overlay-right .overlay-img,
-  .slide--overlay-left .overlay-img {
-    height: 50%;
+  .slide--overaylay-middle .overlay-img {
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    transform: translate(-50%, -50%);
+    width: auto;
+    height: auto;
+    max-width: 80vw;
+    max-height: 80vh;
+    object-fit: contain;
   }
 
-  .slide--overlay-middle .overlay-img {
-    max-height: 60%;
-  }
-
+  /* hide bottles on mobile as before */
   .bottle-img {
-    height: 50%;
+    display: none;
   }
 }
