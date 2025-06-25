@@ -231,28 +231,13 @@ else if (data.type === 'overlay-middle') {
     return slide;
   });
 
-  // whenever you activate a new slide:
-function showSlide(slideEl) {
-  // remove .active from all slides first
-  document.querySelectorAll('.slide-caption.active').forEach(s => {
-    s.classList.remove('active');
-  });
 
-  // force reflow on images so animation can restart
-  const img = slideEl.querySelector('.type-2-img');
-  if (img) {
-    img.style.animation = 'none';
-    void img.offsetWidth;   // <- reflow
-  }
 
-  // now activate the new slide
-  slideEl.classList.add('active');
-}
-
-  /* cross‑fade loop ------------------------------------------------------ */
+  /*
+  cross‑fade loop ------------------------------------------------------ 
+  */
   let idx = 0;
   slides[idx].classList.add('active');
-
 
 
 while (true) {
@@ -276,4 +261,31 @@ while (true) {
 
   idx = (idx + 1) % slides.length;
 } 
+
+
+/* manual click-to-advance FOR DEBUGGING---------------------------------------------- 
+let idx = 0;
+slides[idx].classList.add('active');
+
+container.addEventListener('click', () => {
+  const curr = slides[idx];
+  const next = slides[(idx + 1) % slides.length];
+
+  // hide current
+  curr.classList.remove('active', 'loaded');
+
+  // show next
+  next.classList.add('active');
+
+  // trigger overlay fade if needed
+  if (next.classList.contains('slide--overlay-right') ||
+      next.classList.contains('slide--overlay-middle') ||
+      next.classList.contains('slide--overlay-left')) {
+    setTimeout(() => next.classList.add('loaded'), 100);
+  }
+
+  idx = (idx + 1) % slides.length;
+});
+*/
+
 });

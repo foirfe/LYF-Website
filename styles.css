@@ -42,16 +42,16 @@ html, body{
 /* INTRO STYLING */
 .slide--intro {
   position: absolute;
-  inset: 0;                    /* top/right/bottom/left = 0 */
+  inset: 0;                   
   width: 100vw;
   height: 100vh;
   background: var(--bg, #1a2238);
   display: flex;
-  justify-content: center;     /* center horizontally */
-  align-items: center;         /* center vertically */
+  justify-content: center;     
+  align-items: center;         
 }
 
-/* 2) Constrain the dotted border box to ~25% of the width */
+
 .intro-border {
   position: relative;         /* for absolute children */
   width: 25vw;
@@ -59,12 +59,10 @@ html, body{
   max-width: 400px;          /* cap for very large screens */
   min-width: 300px;          /* keep it readable on smaller screens */
   row-gap: 1.5rem;           /* larger gap between lines */
-  border: 3px dotted #B8955A;
+  border: 3px dotted #b8955a;
   box-sizing: border-box;
 }
 
-
-/* 3) Pull the heart “through” the top border */
 .slide--intro .svg-top {
   position: absolute;
   top: -2.5rem;                /* overlap by about half its height */
@@ -92,75 +90,32 @@ html, body{
   white-space: nowrap;
   text-align: center;
 }
-.circle-wrap {
-  transform: translateX(-0%);
-  width: 175px;           /* match your circle’s outer size */
-  height: 175px;
-  border-radius: 50%;    /* makes it perfectly round */
-  overflow: hidden;      /* anything beyond the circle is clipped */
-  background: var(--bg); /* masks the dotted border behind it */
-}
-
-/* your rotating circle image */
-.circle-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  animation: spin 20s linear infinite;
-}
-
-/* the “shine” pseudo-element now lives inside the circle-wrap,
-   but will be clipped to its round shape */
-.circle-wrap::after {
-  content: "";
-  position: absolute;
-  top: 0; left: 0;
-  width: 200%;  /* long enough to sweep */
-  height: 200%;
-  background:
-    linear-gradient(
-      45deg,
-      rgba(255,255,255,0) 30%,
-      rgba(255,255,255,0.5) 50%,
-      rgba(255,255,255,0) 70%
-    );
-  transform: translateX(-100%) rotate(25deg);
-  animation: shine 3s ease-in-out infinite;
-  pointer-events: none;
-}
-
-/* keyframes */
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-@keyframes shine {
-  to { transform: translateX(100%) rotate(25deg); }
-}
-
 
 /* 5) Text stack inside */
-.intro-text {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  row-gap: 0.5rem;
-  margin-top: 25%;
-}
-
-.intro-text .logo {
-  font-size: clamp(3.5rem, 10vw, 6rem);
-  color: var(--logoColor, #B8955A);
-  line-height: 1;
-  margin: 0;
-  margin-bottom: 5%;
-}
-.registered-trademark {
-  font-size: 1rem;
-  color: #B8955A;
-  margin: 0;
-}
+  .intro-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 0.5rem;
+    margin-top: 25%;
+  }
+  
+  .intro-text .logo {
+    font-size: clamp(3.5rem, 10vw, 6rem);
+    line-height: 1;
+    letter-spacing: 16%;
+    text-indent: 8%;
+    color: #B8955A;
+    margin: 0;
+    margin-bottom: 5%;
+  }
+  .registered-trademark {
+    font-size: 1.5rem;
+    color: #B8955A;
+    margin: 0;
+  }
 .intro-text .line {
-  font-size: clamp(2rem, 5vw, 2.75rem);
+  font-size: clamp(3rem, 5vw, 2.75rem);
   line-height: 1.1;
   color: var(--fontsColor, #ffff);
   margin: 0;
@@ -171,6 +126,81 @@ html, body{
   font-size: clamp(1.25rem, 4vw, 2rem);
   font-style: italic;
 }
+
+
+/* container for both rings */
+.circle-wrap {
+  position: relative;
+  width: 200px;   /* ← match your badge SVG size */
+  height: 200px;
+}
+
+
+.circle-outer {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  animation: spin 8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* inner-circle and shine setup… */
+.inner-circle {
+  position: absolute;
+  inset: 0;               /* fill the 200×200 parent */
+  border-radius: 50%;
+  overflow: hidden;       /* clip anything outside the round */
+  pointer-events: none;
+  isolation: isolate;
+}
+
+/* your static white SVG badge */
+.circle-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 1;            
+}
+
+/* ★ the shine overlay ★ */
+.inner-circle .shine {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+
+  /* visible debug stripes — swap later for gradient */
+ background: repeating-linear-gradient(
+  55deg,
+  rgb(255, 255, 255) 30%,
+  rgb(184, 149, 90) 50%,
+  rgb(255, 255, 255) 70%
+);
+  background-size: 300% 300%;
+
+  /* now a proper glare sweep with fade in/out */
+animation: shine 20s linear infinite;
+  opacity: 0; /* controlled by animation */
+
+  /* mask to the SVG ring */
+  mask-image: url("./assets/svg/circle-white-inner.svg");
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  mask-mode: alpha;
+
+  -webkit-mask-image: url("./assets/svg/circle-white-inner.svg");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  -webkit-mask-mode: alpha;
+}
+@keyframes shine {
+  0%   { background-position: 200% 0; opacity: 0; }
+  10%  { opacity: 1; }
+  50%  { background-position: 0% 0; opacity: 1; }
+  90%  { opacity: 1; }
+  100% { background-position: -200% 0; opacity: 0; }
+}
+
 /* Font Styling */
   .font-1{
    font-family: PlayfairDisplayRegular,  Helvetica,serif;
@@ -326,7 +356,7 @@ html, body{
 @media (max-width: 600px) {
   .intro-border {
     width: 90vw;
-    height: 65vh;
+    height: 85vh;
     min-width: auto;
   }
 
@@ -336,19 +366,19 @@ html, body{
   }
 
   .intro-text {
-    margin-top: 35%;
+    margin-top: 25%;
   }
 
   .intro-text .logo {
-    font-size: clamp(2.5rem, 12vw, 4.5rem);
+    font-size: clamp(5.5rem, 12vw, 4.5rem);
   }
 
   .intro-text .line {
-    font-size: clamp(1.5rem, 6vw, 2rem);
+    font-size: clamp(3.5rem, 6vw, 2rem);
   }
 
   .intro-text .line.small {
-    font-size: clamp(1rem, 5vw, 1.5rem);
+    font-size: clamp(3.5rem, 5vw, 1.5rem);
   }
 
  .slide-caption,
