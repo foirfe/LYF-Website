@@ -74,7 +74,7 @@ const slidesData = [
     {
     type:       'overlay-left',           
     bg:         '#e32a6b8',
-    src:        'assets/images/sec3image3.png',
+    src:        'assets/images/sec3image3.jpg',
     alt:        'Hand Pour Glass',
     overlaySrc: 'assets/cutouts/discoverenhanced.png',// 
     overlayAlt: 'Facts',
@@ -124,7 +124,7 @@ const slidesData = [
      {
     type:       'overlay-right',           
     bg:         '#856e45',
-    src:        'assets/images/sec5image3.png',
+    src:        'assets/images/sec5image3.jpg',
     alt:        'Hand Pour Ice',
     overlaySrc: 'assets/cutouts/discoverenhanced.png',
     overlayAlt: 'Discover Enhanced',
@@ -238,29 +238,29 @@ else if (data.type === 'overlay-middle') {
   */
   let idx = 0;
   slides[idx].classList.add('active');
-
-
-while (true) {
-  const curr = slides[idx];
-  curr.classList.add('active');
-
-  if (curr.classList.contains('slide--overlay-right') || curr.classList.contains('slide--overlay-middle') || curr.classList.contains('slide--overlay-left'))
-      
+  
+  
+  while (true) {
+    const curr = slides[idx];
+    curr.classList.add('active');
+    
+    if (curr.classList.contains('slide--overlay-right') || curr.classList.contains('slide--overlay-middle') || curr.classList.contains('slide--overlay-left'))
+    
     {
-    setTimeout(() => {
-      curr.classList.add('loaded');
-    }, 1000);
-  }
-
-  await wait(+curr.dataset.duration);
-
-  const next = slides[(idx + 1) % slides.length];
-  next.classList.add('active');
-  curr.classList.remove('active');
-  curr.classList.remove('loaded');
-
-  idx = (idx + 1) % slides.length;
-} 
+      setTimeout(() => {
+        curr.classList.add('loaded');
+      }, 1000);
+    }
+    
+    await wait(+curr.dataset.duration);
+    
+    const next = slides[(idx + 1) % slides.length];
+    next.classList.add('active');
+    curr.classList.remove('active');
+    curr.classList.remove('loaded');
+    
+    idx = (idx + 1) % slides.length;
+  } 
 
 
 /* manual click-to-advance FOR DEBUGGING---------------------------------------------- 
@@ -270,20 +270,20 @@ slides[idx].classList.add('active');
 container.addEventListener('click', () => {
   const curr = slides[idx];
   const next = slides[(idx + 1) % slides.length];
-
+  
   // hide current
   curr.classList.remove('active', 'loaded');
-
+  
   // show next
   next.classList.add('active');
-
+  
   // trigger overlay fade if needed
   if (next.classList.contains('slide--overlay-right') ||
-      next.classList.contains('slide--overlay-middle') ||
-      next.classList.contains('slide--overlay-left')) {
+  next.classList.contains('slide--overlay-middle') ||
+  next.classList.contains('slide--overlay-left')) {
     setTimeout(() => next.classList.add('loaded'), 100);
   }
-
+  
   idx = (idx + 1) % slides.length;
 });
 */

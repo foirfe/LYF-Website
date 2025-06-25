@@ -248,6 +248,7 @@ animation: shine 20s linear infinite;
   pointer-events: none;
   opacity: 0;
   transition: opacity 2s ease;
+  z-index: 2;
 }
 
 .slide--overlay-right.loaded .overlay-img {
@@ -283,6 +284,7 @@ animation: shine 20s linear infinite;
   pointer-events: none;
   opacity: 0;
   transition: opacity 2s ease;
+  z-index: 2;
 }
 
 .slide--overlay-left.loaded .overlay-img {
@@ -309,6 +311,7 @@ animation: shine 20s linear infinite;
   height: 80%;
   opacity: 1;
   transition: transform 3s ease;
+  z-index: 2;
 }
 
 .bottle-left {
@@ -350,6 +353,18 @@ animation: shine 20s linear infinite;
 /* Trigger overlay fade-in */
 .slide--overlay-middle.loaded .overlay-img {
   opacity: 1;
+}
+
+/* DARK OVERLAY */
+.slide--overlay-right::before,
+.slide--overlay-left::before,
+.slide--overlay-middle::before {
+  content: "";
+  position: absolute;
+  inset: 0;                    /* stretch over the whole slide */
+  background: rgba(0,0,0,.55); /* tweak darkness here */
+  pointer-events: none;        /* nothing blocks clicks */
+  z-index: 1;                  /* above below everything else */
 }
 
 /* Responsive adjustments for small screens */
