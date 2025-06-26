@@ -1,8 +1,14 @@
 /* FONTS */
-@font-face { font-family: Nexa Light; src: url('./assets/fonts/nexa-light.otf'); }
+@font-face { 
+  font-family: Nexa Light; 
+  src: url('./assets/fonts/nexa-light.otf'); }
 @font-face {
   font-family: PlayfairDisplaySemiBold;
   src: url('./assets/fonts/PlayfairDisplay-SemiBoldItalic.ttf');
+}
+@font-face {
+  font-family: PlayfairDisplayBold;
+  src: url(./assets/fonts/PlayfairDisplay-Bold.ttf);
 }
 @font-face {
   font-family: Bebas Neue Book;
@@ -12,6 +18,7 @@
   font-family: PlayfairDisplayRegular;
   src: url('./assets/fonts/PlayfairDisplay-Regular.ttf');
 }
+
 
 html, body{
   margin: 0;
@@ -53,42 +60,48 @@ html, body{
 
 
 .intro-border {
-  position: relative;         /* for absolute children */
-  width: 25vw;
-  height: 75vh;           /* 75% of the viewport height */
-  max-width: 400px;          /* cap for very large screens */
-  min-width: 300px;          /* keep it readable on smaller screens */
-  row-gap: 1.5rem;           /* larger gap between lines */
-  border: 3px dotted #b8955a;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 23vw;
+  height: 80vh;
+  border: 3px dotted var(--borderColor,#856e45);
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .slide--intro .svg-top {
   position: absolute;
-  top: -2.5rem;                /* overlap by about half its height */
+  top: -3.5rem;                /* overlap by about half its height */
   left: 50%;
   transform: translateX(-50%);
   background: var(--bg, #1a2238);
   padding: 0 0.5rem;
   z-index: 1;
-  width: 100px;               
+  width: 27%;               
 }
 
 /* 4) Pull the bottom text “through” the bottom border */
 .slide--intro .bottom-text {
   position: absolute;
-  bottom: -1.5rem;             /* overlap border by half its height */
+  bottom: -1rem;             /* overlap border by half its height */
   left: 50%;
   transform: translateX(-50%);
   background: var(--bg, #1a2238);
-  padding: 0 0.75rem;
+  padding: 0 1rem;
   z-index: 1;
   line-height: 1;
   color: #fff;
-  font-size: 1.25rem;
-  letter-spacing: 0.05em;
+  font-size: clamp(1.25rem, 3vw, 1.55rem);
+  letter-spacing: 0.33em;
   white-space: nowrap;
   text-align: center;
+  font-family: 'Bebas Neue Book', Helvetica, sans-serif;
+  color: var(--fontsColor, #ffff);
 }
 
 /* 5) Text stack inside */
@@ -96,45 +109,50 @@ html, body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    row-gap: 0.5rem;
-    margin-top: 25%;
+    row-gap: 0.45rem;
   }
   
   .intro-text .logo {
-    font-size: clamp(3.5rem, 10vw, 6rem);
+    font-size: clamp(4.5rem, 10vw, 6rem);
     line-height: 1;
+    display: flex;
+    align-items: flex-end;
     letter-spacing: 16%;
     text-indent: 8%;
-    color: #B8955A;
+    font-family: PlayfairDisplayRegular,  Helvetica,serif;
+    color: var(--logoColor, #856e45);
     margin: 0;
     margin-bottom: 5%;
   }
   .registered-trademark {
     font-size: 1.5rem;
-    color: #B8955A;
+    font-weight: lighter;
+    color: var(--logoColor, #856e45);
     margin: 0;
   }
 .intro-text .line {
-  font-size: clamp(3rem, 5vw, 2.75rem);
-  line-height: 1.1;
+  font-size: clamp(3.5rem, 5vw, 2.75rem);
+  line-height: 1;
+   font-family: PlayfairDisplayBold,  Helvetica,serif;
   color: var(--fontsColor, #ffff);
   margin: 0;
   font-weight: bold;
 }
 
 .intro-text .line.small {
-  font-size: clamp(1.25rem, 4vw, 2rem);
-  font-style: italic;
+  font-size: clamp(3.5rem, 4vw, 2rem);
+  font-family: PlayfairDisplaySemiBold,  Helvetica, sans-serif;
+  font-weight: lighter;
 }
 
 
 /* container for both rings */
 .circle-wrap {
   position: relative;
-  width: 200px;   /* ← match your badge SVG size */
-  height: 200px;
+  width: 175px;   /* ← match your badge SVG size */
+  height: 175px;
+  margin-top: 5%;
 }
-
 
 .circle-outer {
   position: absolute; inset: 0;
@@ -153,7 +171,7 @@ html, body{
   isolation: isolate;
 }
 
-/* your static white SVG badge */
+/* static SVG badge */
 .circle-inner {
   position: relative;
   width: 100%;
@@ -166,13 +184,11 @@ html, body{
   position: absolute;
   inset: 0;
   z-index: 2;
-
-  /* visible debug stripes — swap later for gradient */
  background: repeating-linear-gradient(
   55deg,
-  rgb(255, 255, 255) 30%,
-  rgb(184, 149, 90) 50%,
-  rgb(255, 255, 255) 70%
+  var(--bg) 30%,
+  var(--logoColor) 50%,
+  var(--logoColor) 70%
 );
   background-size: 300% 300%;
 
@@ -201,16 +217,7 @@ animation: shine 20s linear infinite;
   100% { background-position: -200% 0; opacity: 0; }
 }
 
-/* Font Styling */
-  .font-1{
-   font-family: PlayfairDisplayRegular,  Helvetica,serif;
-  }
-  .font-3{
-    font-family: PlayfairDisplaySemiBold,  Helvetica, sans-serif;
-  }
-  .font-4{
-    font-family: 'BebasNeueBook', Helvetica, sans-serif;
-  }
+
 
 /* CAPTION STYLING */
 .slide-caption,
@@ -370,8 +377,8 @@ animation: shine 20s linear infinite;
 /* Responsive adjustments for small screens */
 @media (max-width: 600px) {
   .intro-border {
-    width: 90vw;
-    height: 85vh;
+    width: 85vw;
+    height: 75vh;
     min-width: auto;
   }
 
@@ -381,19 +388,26 @@ animation: shine 20s linear infinite;
   }
 
   .intro-text {
-    margin-top: 25%;
+    margin-top: 2.5%;
+    line-height: 0.5;
   }
-
+.registered-trademark{
+  font-size: 0.25em;
+}
   .intro-text .logo {
-    font-size: clamp(5.5rem, 12vw, 4.5rem);
+    font-size: clamp(4.5rem, 12vw, 3.5rem);
   }
 
   .intro-text .line {
-    font-size: clamp(3.5rem, 6vw, 2rem);
+    font-size: clamp(2.5rem, 6vw, 2rem);
   }
 
   .intro-text .line.small {
-    font-size: clamp(3.5rem, 5vw, 1.5rem);
+    font-size: clamp(2.5rem, 5vw, 1.5rem);
+  }
+  .slide--intro .bottom-text{
+    font-size: clamp(.5rem, 5vw, 1.25rem);
+
   }
 
  .slide-caption,
@@ -415,7 +429,6 @@ animation: shine 20s linear infinite;
     object-position: center;
   }
 
-  /* now target only your type-2 captions for the pan effect */
    .slide-caption .type-2-img {
     position: absolute;
     top: 0;
@@ -427,12 +440,10 @@ animation: shine 20s linear infinite;
     transform: translateX(0);        /* ensure we start flush-left */
   }
 
-  /* 2) Only when the slide is active, trigger the pan */
+  /* Only when the slide is active, trigger the pan */
   .slide-caption.active .type-2-img {
     animation: pan-x 2s linear forwards;
   }
-
-  /* 3) Your keyframes (unchanged) */
   @keyframes pan-x {
     from { transform: translateX(0); }
     to   { transform: translateX(calc(100vw - 100%)); }
@@ -446,10 +457,8 @@ animation: shine 20s linear infinite;
     right: auto;
     bottom: auto;
     transform: translate(-50%, -50%);
-    width: auto;
-    height: auto;
-    max-width: 80vw;
-    max-height: 80vh;
+    max-width: 95vw;
+    max-height: 100vh;
     object-fit: contain;
   }
 

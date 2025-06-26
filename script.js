@@ -5,6 +5,9 @@ const slidesData = [
     type:      'intro',
     bg:        '#1a2238',
     duration:  4000,
+    heartLogo: 'assets/svg/whiteheart.svg',
+    outerCircle: 'assets/svg/circle-golden-outer.svg', 
+    innerCircle: 'assets/svg/circle-golden-inner.svg',
   },
 
   // 2 ▸ caption – photo
@@ -22,7 +25,7 @@ const slidesData = [
     bg:         '#1a2238',
     src:        'assets/images/sec1image3.jpg',
     alt:        'Hand Pour Ice',
-    overlaySrc: 'assets/cutouts/discoverenhanced.png',// ← match JS property name
+    overlaySrc: 'assets/cutouts/discoverenhanced.png',
     overlayAlt: 'Facts',
     duration:   6000,
   },
@@ -32,6 +35,9 @@ const slidesData = [
     type:      'intro',
     bg:        '#144031',
     duration:  4000,
+    heartLogo: 'assets/svg/whiteheart.svg',
+    outerCircle: 'assets/svg/circle-golden-outer.svg', 
+    innerCircle: 'assets/svg/circle-golden-inner.svg',
   },
 
   // 5 ▸ caption – photo 
@@ -60,6 +66,9 @@ const slidesData = [
     type:      'intro',
     bg:        '#e3a6b8',
     duration:  4000,
+    heartLogo: 'assets/svg/whiteheart.svg',
+    outerCircle: 'assets/svg/circle-golden-outer.svg', 
+    innerCircle: 'assets/svg/circle-golden-inner.svg',
   },
     // 8 ▸ caption – photo 
     {
@@ -85,7 +94,11 @@ const slidesData = [
     type:      'intro',
     bg:        '#856e45',
     logoColor: '#144031',
+    borderColor: '#144031',
     duration:  4000,
+    heartLogo: 'assets/svg/greenheart.svg',
+    outerCircle: 'assets/svg/circle-green-outer.svg', 
+    innerCircle: 'assets/svg/circle-green-inner.svg',
   },
       // 11 ▸ caption – photo 
       {
@@ -110,6 +123,9 @@ const slidesData = [
           type:      'intro',
           bg:        '#999999',
           duration:  4000,
+          heartLogo: 'assets/svg/whiteheart.svg',
+          outerCircle: 'assets/svg/circle-golden-outer.svg', 
+    innerCircle: 'assets/svg/circle-golden-inner.svg',
         },
             // 14 ▸ caption – photo 
       {
@@ -137,6 +153,9 @@ const slidesData = [
           logoColor: '#856e45',
           fontsColor: '#856e45',
           duration:  4000,
+          heartLogo: 'assets/svg/goldheart.svg',
+          outerCircle: 'assets/svg/circle-golden-outer.svg', 
+    innerCircle: 'assets/svg/circle-golden-inner.svg',
         },
                     // 17 ▸ caption – photo
       {
@@ -147,7 +166,7 @@ const slidesData = [
         overlayAlt: 'Hand Pour Ice',
         duration:   2000,
       },
-              // 16 ▸ Overlay Left – photo + PNG on the right
+              // 18 ▸ Overlay Left – photo + PNG on the right
              {
     type:       'overlay-left',           
     bg:         '#ffffff',
@@ -178,7 +197,8 @@ window.addEventListener('DOMContentLoaded', async () => {
     slide.style.setProperty('--bg', data.bg ?? '#000');
     /* shared fontsColor colour ------------------------------------------ */
     slide.style.setProperty('--fontsColor', data.fontsColor ?? '#fff');
-    slide.style.setProperty('--logoColor', data.logoColor ?? '#B8955A');
+    slide.style.setProperty('--logoColor', data.logoColor ?? '#856e45');
+    slide.style.setProperty('--borderColor', data.borderColor ?? '#856e45');
 
 
     /* main photo (if that template has one) ----------------------------- */
@@ -188,9 +208,20 @@ window.addEventListener('DOMContentLoaded', async () => {
       mainImg.alt = data.alt ?? '';
     }
 
-    /* type‑specific fields ---------------------------------------------- */
+    /* Type‑specific fields ---------------------------------------------- */
     if (data.type === 'intro') {
-      // nothing dynamic for your current intro template
+      const heartLogo = slide.querySelector('.svg-top');
+      const outerCircle = slide.querySelector('.circle-outer');
+      const innerCircle = slide.querySelector('.circle-inner');
+      if (heartLogo) {
+        heartLogo.src = data.heartLogo;
+      }
+      if (outerCircle) {
+        outerCircle.src = data.outerCircle || '';
+      }
+      if (innerCircle) {
+        innerCircle.src = data.innerCircle || '';
+      }
     }
 
     else if (data.type === 'caption') {
@@ -261,15 +292,31 @@ else if (data.type === 'overlay-middle') {
     
     idx = (idx + 1) % slides.length;
   } 
-
-
-/* manual click-to-advance FOR DEBUGGING---------------------------------------------- 
-let idx = 0;
-slides[idx].classList.add('active');
-
-container.addEventListener('click', () => {
-  const curr = slides[idx];
-  const next = slides[(idx + 1) % slides.length];
+  
+  
+  /* manual click-to-advance FOR DEBUGGING---------------------------------------------- 
+  let idx = 0;
+  slides[idx].classList.add('active');
+  
+  container.addEventListener('mousedown', (event) => {
+    // Prevent default context menu on right-click
+    if (event.button === 2) event.preventDefault();
+    
+    const curr = slides[idx];
+    let nextIdx;
+    
+    if (event.button === 0) {
+      // Left click: go forward
+      nextIdx = (idx + 1) % slides.length;
+    } else if (event.button === 2) {
+      // Right click: go backward
+      nextIdx = (idx - 1 + slides.length) % slides.length;
+    } else {
+      // Ignore other buttons (like middle click)
+    return;
+  }
+  
+  const next = slides[nextIdx];
   
   // hide current
   curr.classList.remove('active', 'loaded');
@@ -284,8 +331,11 @@ container.addEventListener('click', () => {
     setTimeout(() => next.classList.add('loaded'), 100);
   }
   
-  idx = (idx + 1) % slides.length;
+  idx = nextIdx;
 });
 */
+
+// Optional: disable context menu to avoid browser menu on right-click
+container.addEventListener('contextmenu', e => e.preventDefault());
 
 });
