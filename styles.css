@@ -1,3 +1,6 @@
+
+
+
 /* FONTS */
 @font-face { 
   font-family: Nexa Light; 
@@ -369,13 +372,13 @@ animation: shine 20s linear infinite;
   content: "";
   position: absolute;
   inset: 0;                    /* stretch over the whole slide */
-  background: rgba(0,0,0,.55); /* tweak darkness here */
+  background: rgba(0, 0, 0, 0.651); /* tweak darkness  */
   pointer-events: none;        /* nothing blocks clicks */
   z-index: 1;                  /* above below everything else */
 }
 
-/* Responsive adjustments for small screens */
-@media (max-width: 600px) {
+/* Responsive adjustments for small screens (PHONES, TABLETS) */
+@media (max-width: 1024px) {
   .intro-border {
     width: 85vw;
     height: 75vh;
@@ -466,4 +469,56 @@ animation: shine 20s linear infinite;
   .bottle-img {
     display: none;
   }
+
+/* Pad portrait: 768–1024 wide AND taller than wide */
+@media (min-width:768px) and (max-width:1024px) and (orientation:portrait){
+  .intro-border{
+    width: 63vw;          /* wider box so text can breathe */
+    height: 82vh;
+  }
+
+  .intro-text{
+    row-gap: clamp(0.25rem, 1.2vh, 1rem);
+  }
+
+  .intro-text .logo{  
+    font-size: clamp(8.5rem, 9vmin, 8.5rem);
+    letter-spacing: .15em;
+  }
+
+  .registered-trademark{
+    font-size: clamp(2.25rem, 1.8vmin, 2rem);
+  }
+
+  .intro-text .line{
+    font-size: clamp(2.5rem, 6.5vmin, 3.2rem);
+  }
+  .intro-text .line.small{
+    font-size: clamp(1.9rem, 5.5vmin, 2.6rem);
+  }
+
+  .slide--intro .bottom-text{
+    font-size: clamp(.9rem, 2.8vmin, 1.25rem);
+  }
+
+  .circle-wrap{
+    width: clamp(200px, 14vmin, 200px);
+    height: clamp(200px, 14vmin, 200px);
+  }
 }
+}
+/* Common laptops: 1024–1365 */
+@media (min-width:1024px) and (max-width:1365px){
+  .intro-border{ width:28vw; height:78vh; }
+  .circle-wrap{ width:160px; height:160px; }
+  .intro-text .logo{ font-size: clamp(4rem, 6vw, 5rem);
+   }
+}
+
+/* Large laptops / small desktops: 1366–1599 */
+@media (min-width:1366px) and (max-width:1599px){
+  .intro-border{ width:25vw; }
+  .overlay-img{ max-width:75%; }
+}
+
+
